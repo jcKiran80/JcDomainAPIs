@@ -11,7 +11,7 @@ namespace JcDomainAPIs.Controllers
         [HttpGet]
         public int GetClientsCount()
         {
-            return 100;
+            return ClientRepo.ClientRepository.Count();
         }
 
         [HttpGet]
@@ -20,6 +20,21 @@ namespace JcDomainAPIs.Controllers
         {
 
             return ClientRepo.ClientRepository;
+        }
+
+        [HttpPost]
+        public int CreateNewClient()
+        {
+            ClientRepo.ClientRepository.Add(new EslClient()
+            {
+                EslId = Guid.NewGuid(),
+                ClientId = string.Concat("BC000", ++ClientRepository.ClientRepo.i),
+                First_Name = string.Concat("First_Name", ClientRepository.ClientRepo.i),
+                Last_Name = string.Concat("Last_Name", ClientRepository.ClientRepo.i),
+                ClientData = string.Empty
+            });
+
+            return ClientRepository.ClientRepo.i;
         }
     }
 }
